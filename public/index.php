@@ -1,16 +1,17 @@
 <?php
 
+use App\Router;
+
 require_once '../vendor/autoload.php';
 
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
-$router = new AltoRouter();
+define('DEBUG_TIME', microtime(true));
 
-try {
-    $router->map('GET', '/', function () {
-        require dirname(__DIR__) . '/views/post/index.php';
-    });
-} catch (Exception $e) {
-}
-
-$match = $router->match();
-$match['target']();
+$router = new Router(dirname(__DIR__) . '/views');
+$router
+    ->get('/', 'post/index', 'blog')
+    ->get('/category', 'category/show', 'category')
+    ->run();

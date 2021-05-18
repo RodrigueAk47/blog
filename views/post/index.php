@@ -1,4 +1,4 @@
-<?php require dirname(__DIR__) . '/layout/header.php' ?>
+<?php $title = 'Blog'?>
 <section class="section-header bg-primary text-white pb-10 pb-sm-8 pb-lg-11">
     <div class="container">
         <div class="row justify-content-center">
@@ -133,5 +133,3 @@
     </div>
 </section>
 </main>
-
-<?php require dirname(__DIR__) . '/layout/footer.php' ?>
