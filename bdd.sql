@@ -23,7 +23,7 @@ CREATE TABLE post_category (
                            REFERENCES post (id)
                            ON DELETE CASCADE
                            ON UPDATE RESTRICT,
-    CONSTRAINT fk_post
+    CONSTRAINT fk_category
                             FOREIGN KEY (category_id)
                             REFERENCES category (id)
                             ON DELETE CASCADE

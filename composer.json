@@ -10,14 +10,17 @@
     "autoload": {
         "psr-4": {
             "App\\": "src"
-        }
+        },
+        "files": ["src/Helpers.php"]
     },
     "require": {
-        "altorouter/altorouter": "^2.0",
-        "php": "^7.4",
+        "altorouter/altorouter": "^2.0"
+    },
+
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "filp/whoops": "^2.12",
         "symfony/var-dumper": "^5.2",
-        "fakerphp/faker": "^1.14",
-      "ext-pdo": "*"
+        "fakerphp/faker": "^1.14"
     }
 }
