@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/><!-- /Added by HTTrack -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Pixel Pro - <?= $title ?? 'Mon site'?></title>
+    <title>AMS - <?= $title ?? 'Mon site'?></title>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta name="title" content="Pixel Pro - Blog">
     <meta name="author" content="Themesberg">
@@ -133,7 +133,7 @@
 
 
 
-    <footer class="footer pt-6 pb-5 bg-dark text-white">
+    <footer class="footer pt-6 pb-5 bg-primary text-white">
         <div class="container">
             <div class="row">
                 <div class="col-md-4"><img class="navbar-brand-dark mb-4" height="35" src="../../assets/img/brand/light.svg"
