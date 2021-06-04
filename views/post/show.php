@@ -35,12 +35,14 @@ $categories = $query->fetchAll();
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10 text-center">
                 <div class="mb-4">
-                    <?php foreach ($categories as $category):?>
-                    <a href="<?= $router->url('category', ['id' => $category->getID(), 'slug' => $category->getSlug()])?>" class="badge bg-success me-3 px-2"><?= $category->getName()?></a>
+                    <?php foreach ($categories as $category): ?>
+                        <a href="<?= $router->url('category', ['id' => $category->getID(), 'slug' => $category->getSlug()]) ?>"
+                           class="badge bg-success me-3 px-2"><?= $category->getName() ?></a>
                     <?php endforeach ?>
                 </div>
                 <h1 class="display-3 mb-4 px-lg-5"><?= $post->getName() ?></h1>
-                <div class="post-meta"><span class="fw-bold me-3">James Curran</span> <span class="post-date me-3"> <?= $post->getCreatedAt()->format('d F Y') ?></span>
+                <div class="post-meta"><span class="fw-bold me-3">James Curran</span> <span
+                            class="post-date me-3"> <?= $post->getCreatedAt()->format('d F Y') ?></span>
                     <span class="fw-bold">7 min read</span></div>
             </div>
         </div>

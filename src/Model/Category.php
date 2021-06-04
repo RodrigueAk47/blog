@@ -17,7 +17,7 @@ class Category
      */
     public function getSlug(): ?string
     {
-    return $this->slug;
+        return $this->slug;
     }
 
     /**

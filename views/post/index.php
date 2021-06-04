@@ -45,7 +45,9 @@ $posts = $query->fetchAll(PDO::FETCH_CLASS, Post::class);
                         <ul class="pagination">
                             <?php if ($currentPage > 1): ?>
                             <?php $link = $router->url('home');
-                                    if ($currentPage > 2) $link .= '?page=' . ($currentPage -1);
+                                    if ($currentPage > 2) {
+                                        $link .= '?page=' . ($currentPage - 1);
+                                    }
                             ?>
                             <li class="page-item"><a class="page-link" href="<?= $link ?>">Page précédente</a></li>
                             <?php endif ?>

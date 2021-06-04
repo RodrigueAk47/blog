@@ -5,7 +5,7 @@ namespace App\Model;
 
 
 use App\Helpers\Text;
-use \DateTime;
+use DateTime;
 use JetBrains\PhpStorm\Pure;
 
 class Post

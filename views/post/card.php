@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h3 class="h5 card-title"><?= $post->getName() ?></h3>
                 <p class="card-text"><?= $post->getExcerpt() ?></p>
-                <a href="<?= $router->url('post', ['id' => $post->getID(), 'slug' => $post->getSlug()])?>"
+                <a href="<?= $router->url('post', ['id' => $post->getID(), 'slug' => $post->getSlug()]) ?>"
                    class="btn btn-primary btn-sm">Voir plus</a>
             </div>
         </div>

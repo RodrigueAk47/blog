@@ -14,7 +14,8 @@
         "files": ["src/Helpers.php"]
     },
     "require": {
-        "altorouter/altorouter": "^2.0"
+        "altorouter/altorouter": "^2.0",
+      "ext-pdo": "*"
     },
 
     "require-dev": {

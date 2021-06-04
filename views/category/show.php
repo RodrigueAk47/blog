@@ -15,7 +15,7 @@ $query->setFetchMode(PDO::FETCH_CLASS, Category::class);
 $category = $query->fetch();
 
 if ($category === false) {
-    throw new Exception('Aucun category ne correspond a cet ID');
+    throw new Exception('Aucune categorie ne correspond a cet ID');
 }
 
 if ($category->getSlug() !== $slug) {
@@ -34,11 +34,10 @@ $categories = $query->fetchAll();
 $title = "catégorie - {$category->getName()}";
 
 
-
 $currentPage = URL::getPositiveInt('page', 1);
 
 $count = (int)$pdo->query('SELECT COUNT(category_id) FROM post_category WHERE category_id = ' . $category->getID())
-                  ->fetch(PDO::FETCH_NUM)[0];
+    ->fetch(PDO::FETCH_NUM)[0];
 $perPage = 12;
 $pages = ceil($count / $perPage);
 if ($currentPage > $pages) {
@@ -52,11 +51,10 @@ $link = $router->url('category', ['id' => $category->getID(), 'slug' => $categor
 ?>
 
 
-
 <section class="section-header bg-primary text-white pb-10 pb-sm-8 pb-lg-11">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 cl-md-8 text-center"><h1 class="display-2 mb-4"><?= e($title)?></h1>
+            <div class="col-12 cl-md-8 text-center"><h1 class="display-2 mb-4"><?= e($title) ?></h1>
                 <p class="lead">We help you get better at SEO and marketing: detailed tutorials, case studies and
                     opinion pieces from marketing practitioners and industry experts alike</p></div>
         </div>
@@ -65,7 +63,7 @@ $link = $router->url('category', ['id' => $category->getID(), 'slug' => $categor
 <section class="section section-lg line-bottom-light ">
     <div class="container mt-n10 mt-lg-n12 z-2 ">
         <div class="row mb-4">
-            <?= require dirname(__DIR__) . '/post/card.php'?>
+            <?= require dirname(__DIR__) . '/post/card.php' ?>
         </div>
         <div class="col-12">
             <div class="d-flex justify-content-center">
@@ -81,7 +79,8 @@ $link = $router->url('category', ['id' => $category->getID(), 'slug' => $categor
                         <?php endif ?>
 
                         <?php if ($currentPage < $pages): ?>
-                            <li class="page-item"><a class="page-link" href="<?= $link?>?page=<?= $currentPage + 1 ?>">Page suivantes</a></li>
+                            <li class="page-item"><a class="page-link" href="<?= $link ?>?page=<?= $currentPage + 1 ?>">Page
+                                    suivantes</a></li>
                         <?php endif ?>
                     </ul>
                 </nav>
