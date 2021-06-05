@@ -3,6 +3,7 @@
 use App\Connection;
 use App\Model\Category;
 use App\Model\Post;
+use App\PaginatedQuery;
 use App\URL;
 
 $id = (int)$params['id'];
@@ -34,18 +35,17 @@ $categories = $query->fetchAll();
 $title = "catégorie - {$category->getName()}";
 
 
-$currentPage = URL::getPositiveInt('page', 1);
+$paginatedQuery = new PaginatedQuery(
+        "SELECT p.* FROM post p JOIN post_category pc 
+                on pc.post_id = p.id  WHERE pc.category_id = {$category->getID()} 
+                ORDER BY created_at DESC",
+    "SELECT COUNT(category_id) FROM post_category WHERE category_id = {$category->getID()}",
+);
 
-$count = (int)$pdo->query('SELECT COUNT(category_id) FROM post_category WHERE category_id = ' . $category->getID())
-    ->fetch(PDO::FETCH_NUM)[0];
-$perPage = 12;
-$pages = ceil($count / $perPage);
-if ($currentPage > $pages) {
-    throw new Exception('Cette page n\'existe pas');
-}
-$offset = $perPage * ($currentPage - 1);
-$query = $pdo->query("SELECT p.* FROM post p JOIN post_category pc on pc.post_id = p.id  WHERE pc.category_id = {$category->getID()} ORDER BY created_at DESC LIMIT $perPage OFFSET $offset ");
-$posts = $query->fetchAll(PDO::FETCH_CLASS, Post::class);
+/**
+ * @var Post[]
+ */
+$posts = $paginatedQuery->getItems(Post::class);
 
 $link = $router->url('category', ['id' => $category->getID(), 'slug' => $category->getSlug()]);
 ?>
@@ -69,19 +69,8 @@ $link = $router->url('category', ['id' => $category->getID(), 'slug' => $categor
             <div class="d-flex justify-content-center">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <?php if ($currentPage > 1): ?>
-                            <?php $l = $link;
-                            if ($currentPage > 2) {
-                                $l = $link . '?page=' . ($currentPage - 1);
-                            }
-                            ?>
-                            <li class="page-item"><a class="page-link" href="<?= $l ?>">Page précédente</a></li>
-                        <?php endif ?>
-
-                        <?php if ($currentPage < $pages): ?>
-                            <li class="page-item"><a class="page-link" href="<?= $link ?>?page=<?= $currentPage + 1 ?>">Page
-                                    suivantes</a></li>
-                        <?php endif ?>
+                        <?= $paginatedQuery->previousLink($link)?>
+                        <?= $paginatedQuery->nextLink($link)?>
                     </ul>
                 </nav>
 

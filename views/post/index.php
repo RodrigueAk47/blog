@@ -2,26 +2,20 @@
 
 use App\Connection;
 use App\Model\Post;
+use App\PaginatedQuery;
 use App\URL;
 
 $title = 'Blog';
 
 $pdo = Connection::getPDO();
 
+$paginatedQuery = new PaginatedQuery(
+        "SELECT * FROM post ORDER BY created_at DESC",
+    "SELECT COUNT(id) FROM post",
+);
+$posts = $paginatedQuery->getItems(Post::class);
 
-$currentPage = URL::getPositiveInt('page', 1);
-
-$count = (int)$pdo->query('SELECT COUNT(id) FROM post')->fetch(PDO::FETCH_NUM)[0];
-$perPage = 12;
-$pages = ceil($count / $perPage);
-if ($currentPage > $pages) {
-    throw new Exception('Cette page n\'existe pas');
-}
-$offset = $perPage * ($currentPage - 1);
-$query = $pdo->query("SELECT * FROM post ORDER BY created_at DESC LIMIT $perPage OFFSET $offset");
-$posts = $query->fetchAll(PDO::FETCH_CLASS, Post::class);
-
-
+$link = $router->url('home');
 ?>
 
 
@@ -43,21 +37,10 @@ $posts = $query->fetchAll(PDO::FETCH_CLASS, Post::class);
                 <div class="d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <?php if ($currentPage > 1): ?>
-                            <?php $link = $router->url('home');
-                                    if ($currentPage > 2) {
-                                        $link .= '?page=' . ($currentPage - 1);
-                                    }
-                            ?>
-                            <li class="page-item"><a class="page-link" href="<?= $link ?>">Page précédente</a></li>
-                            <?php endif ?>
-
-                            <?php if ($currentPage < $pages): ?>
-                                <li class="page-item"><a class="page-link" href="<?= $router->url('home')?>?page=<?= $currentPage + 1 ?>">Page suivantes</a></li>
-                            <?php endif ?>
+                            <?= $paginatedQuery->previousLink($link)?>
+                            <?= $paginatedQuery->nextLink($link)?>
                         </ul>
                     </nav>
-
                 </div>
             </div>
         </div>

@@ -15,6 +15,7 @@
                 <a href="<?= $router->url('post', ['id' => $post->getID(), 'slug' => $post->getSlug()]) ?>"
                    class="btn btn-primary btn-sm">Voir plus</a>
             </div>
+
         </div>
     </div>
 <?php endforeach ?>
