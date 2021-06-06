@@ -5,7 +5,10 @@ namespace App\Model;
 
 
 use App\Helpers\Text;
-use \DateTime;
+use DateTime;
+use Exception;
+use App\Model\Category;
+use JetBrains\PhpStorm\Pure;
 
 class Post
 {
@@ -13,32 +16,36 @@ class Post
 
     private ?string $name;
 
-    private  $content;
+    private  ?string $content;
 
-    private $slug;
+    private ?string $slug;
 
-    private   $created_at;
+    private $created_at;
 
-    private $categories = [];
+    private array $categories = [];
 
-    public function getExcerpt(): ?string
+    /**
+     * @return string|null
+     */
+    #[Pure] public function getExcerpt(): ?string
     {
         if ($this->content === null)  {
             return null;
         }
-        return nl2br(htmlentities(Text::Excerpt($this->content, 60)));
+        return nl2br(e(Text::Excerpt($this->content, 60)));
     }
 
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    #[Pure] public function getName(): ?string
     {
-        return $this->name;
+        return e($this->name);
     }
 
     /**
      * @return DateTime
+     * @throws Exception
      */
     public function getCreatedAt(): DateTime
     {
@@ -46,9 +53,8 @@ class Post
     }
 
 
-
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getSlug(): ?string
     {
@@ -56,11 +62,33 @@ class Post
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getID(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return ?string
+     */
+    #[Pure] public function getFormattedContent(): ?string
+    {
+        return nl2br(e($this->content));
+    }
+
+    public function addCategory(Category $category): void
+    {
+        $this->categories[] = $category;
+        $category->setPost($this);
+    }
+
+    /**
+     * @return Category[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
     }
 
 }

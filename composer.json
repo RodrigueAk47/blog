@@ -8,6 +8,7 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
+        "files": ["src/Helpers.php"],
         "psr-4": {
             "App\\": "src"
         }
@@ -17,9 +18,9 @@
     },
 
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "filp/whoops": "^2.12",
         "symfony/var-dumper": "^5.2",
-        "fakerphp/faker": "^1.14"
+        "fakerphp/faker": "^1.14",
+        "squizlabs/php_codesniffer": "*"
     }
 }

@@ -28,6 +28,6 @@ define('DEBUG_TIME', microtime(true));
 $router = new Router(dirname(__DIR__) . '/views');
 $router
     ->get('/', 'post/index', 'home')
-    ->get('/category', 'category/show', 'category')
+    ->get('/category/[*:slug]-[i:id]', 'category/show', 'category')
     ->get('/blog/[*:slug]-[i:id]', 'post/show', 'post')
     ->run();
