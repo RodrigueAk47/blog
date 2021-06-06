@@ -4,7 +4,6 @@ use App\Connection;
 use App\Model\Category;
 use App\Model\Post;
 use App\PaginatedQuery;
-use App\URL;
 
 $id = (int)$params['id'];
 $slug = $params['slug'];

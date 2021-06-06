@@ -6,6 +6,8 @@ namespace App\Model;
 
 use App\Helpers\Text;
 use DateTime;
+use Exception;
+use App\Model\Category;
 use JetBrains\PhpStorm\Pure;
 
 class Post
@@ -36,13 +38,14 @@ class Post
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    #[Pure] public function getName(): ?string
     {
         return e($this->name);
     }
 
     /**
      * @return DateTime
+     * @throws Exception
      */
     public function getCreatedAt(): DateTime
     {
@@ -69,9 +72,23 @@ class Post
     /**
      * @return ?string
      */
-    public function getFormattedContent(): ?string
+    #[Pure] public function getFormattedContent(): ?string
     {
         return nl2br(e($this->content));
+    }
+
+    public function addCategory(Category $category): void
+    {
+        $this->categories[] = $category;
+        $category->setPost($this);
+    }
+
+    /**
+     * @return Category[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
     }
 
 }
