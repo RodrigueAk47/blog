@@ -1,4 +1,7 @@
-.idea
-.vscode
-vendor
+/vendor/
+<<<<<<<<< Temporary merge branch 1
 composer.lock
+=========
+composer.lock
+/.idea
+>>>>>>>>> Temporary merge branch 2
